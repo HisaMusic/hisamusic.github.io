@@ -42,6 +42,7 @@
 <!-- Navbar -->
 <nav class="bg-slate-900/95 border-b border-slate-800 sticky top-0 z-50 backdrop-blur-md">
     <div class="max-w-6xl mx-auto px-6 py-5 flex justify-between items-center">
+        <!-- Logo -->
         <div class="flex items-center gap-x-3">
             <div class="w-11 h-11 bg-gradient-to-br from-purple-500 to-indigo-600 rounded-2xl flex items-center justify-center">
                 <i class="fa-solid fa-headset text-white text-2xl"></i>
@@ -52,24 +53,45 @@
             </div>
         </div>
         
-        <div class="flex items-center gap-x-4">
-             <!-- 新增：トップへ -->
+        <!-- 導航連結 -->
+        <div class="flex items-center gap-x-2 md:gap-x-6">
+            <!-- TOP -->
             <a href="#" 
                onclick="window.scrollTo({top: 0, behavior: 'smooth'}); return false;"
-               class="nav-link px-5 py-2.5 text-sm font-medium hover:text-white transition-colors">
-                トップ
+               class="nav-link flex flex-col items-center text-xs hover:text-white transition-colors px-3 py-1">
+                <i class="fa-solid fa-house text-lg"></i>
+                <span class="hidden md:inline">TOP</span>
             </a>
-            <a href="#pricing" class="nav-link px-5 py-2.5 text-sm font-medium hover:text-white transition-colors">料金</a>
-            <a href="#works" class="nav-link px-5 py-2.5 text-sm font-medium hover:text-white transition-colors">実績</a>
-            <a href="#flow" class="nav-link px-5 py-2.5 text-sm font-medium hover:text-white transition-colors">ご依頼の流れ</a>
-            <a href="#contact" class="nav-link px-5 py-2.5 text-sm font-medium hover:text-white transition-colors font-semibold">ご相談・お見積もり</a>
-            
-           
-            
+
+            <!-- 料金 -->
+            <a href="#pricing" class="nav-link flex flex-col items-center text-xs hover:text-white transition-colors px-3 py-1">
+                <i class="fa-solid fa-yen-sign text-lg"></i>
+                <span class="hidden md:inline">料金</span>
+            </a>
+
+            <!-- 実績 -->
+            <a href="#works" class="nav-link flex flex-col items-center text-xs hover:text-white transition-colors px-3 py-1">
+                <i class="fa-solid fa-trophy text-lg"></i>
+                <span class="hidden md:inline">実績</span>
+            </a>
+
+            <!-- ご依頼の流れ -->
+            <a href="#flow" class="nav-link flex flex-col items-center text-xs hover:text-white transition-colors px-3 py-1">
+                <i class="fa-solid fa-list-check text-lg"></i>
+                <span class="hidden md:inline">流れ</span>
+            </a>
+
+            <!-- ご相談・お見積もり -->
+            <a href="#contact" class="nav-link flex flex-col items-center text-xs hover:text-white transition-colors px-3 py-1 font-semibold">
+                <i class="fa-solid fa-envelope text-lg"></i>
+                <span class="hidden md:inline">ご相談</span>
+            </a>
+
+            <!-- X 連絡（保持原本樣式） -->
             <a href="https://x.com/HisaMusic" target="_blank" 
-               class="px-6 py-2.5 bg-white text-slate-900 font-semibold rounded-2xl text-sm flex items-center gap-x-2 hover:bg-slate-100 transition-all">
+               class="ml-4 px-5 py-2.5 bg-white text-slate-900 font-semibold rounded-2xl text-sm flex items-center gap-x-2 hover:bg-slate-100 transition-all">
                 <i class="fa-brands fa-x-twitter"></i>
-                <span>Xで連絡</span>
+                <span class="hidden md:inline">Xで連絡</span>
             </a>
         </div>
     </div>
@@ -238,34 +260,76 @@
 
         <!-- ご依頼の流れ -->
         <div id="flow" class="lg:col-span-5 bg-slate-900 border border-slate-700 rounded-3xl p-8">
-            <h4 class="font-semibold mb-6 text-lg">ご依頼の流れ</h4>
+            <h4 class="font-semibold mb-8 text-2xl">ご依頼の流れ</h4>
             
-            <div class="grid md:grid-cols-4 gap-6 text-sm">
-                <div class="flex gap-x-3">
-                    <div class="font-mono text-purple-400 font-bold w-6">01</div>
-                    <div>データ確認</div>
+            <div class="space-y-12">
+                <!-- Step 01 -->
+                <div class="flex gap-6">
+                    <div class="flex-shrink-0 w-10 h-10 bg-purple-500/10 text-purple-400 rounded-2xl flex items-center justify-center font-bold">01</div>
+                    <div class="flex-1">
+                        <h5 class="font-semibold text-lg mb-3">データ確認</h5>
+                        <p class="text-slate-400 mb-4">音声データ、台本などをお送りいただき、内容を確認いたします。</p>
+                        
+                        <div class="bg-slate-800 rounded-2xl p-5 text-sm">
+                            <p class="font-medium mb-3 text-purple-300">提出いただくデータ</p>
+                            <ul class="space-y-2 text-slate-300">
+                                <li>• 音声データ（.wavファイル推奨）</li>
+                                <li>• ご自身で用意した効果音データ（効果音挿入をご希望される場合）</li>
+                                <li>• 台本データ（PDFファイル推奨）</li>
+                                <li>• 完成品の用途</li>
+                            </ul>
+                        </div>
+                    </div>
                 </div>
-                <div class="flex gap-x-3">
-                    <div class="font-mono text-purple-400 font-bold w-6">02</div>
-                    <div>お見積もり・見積書作成</div>
+
+                <!-- Step 02 -->
+                <div class="flex gap-6">
+                    <div class="flex-shrink-0 w-10 h-10 bg-purple-500/10 text-purple-400 rounded-2xl flex items-center justify-center font-bold">02</div>
+                    <div>
+                        <h5 class="font-semibold text-lg mb-1">お見積もり・見積書作成</h5>
+                        <p class="text-slate-400">
+                            データをいただきましたら、通常2～3日以内に見積書をご送付いたします。<br>
+                            内容・金額にご納得いただけましたら正式依頼となります。
+                        </p>
+                    </div>
                 </div>
-                <div class="flex gap-x-3">
-                    <div class="font-mono text-purple-400 font-bold w-6">03</div>
-                    <div>依頼確定 → 注文書のご送付</div>
+
+                <!-- Step 03 -->
+                <div class="flex gap-6">
+                    <div class="flex-shrink-0 w-10 h-10 bg-purple-500/10 text-purple-400 rounded-2xl flex items-center justify-center font-bold">03</div>
+                    <div>
+                        <h5 class="font-semibold text-lg mb-1">依頼確定 → 注文請書のご送付</h5>
+                        <p class="text-slate-400">注文請書をご送付いただき、正式に作業を開始いたします。</p>
+                    </div>
                 </div>
-                <div class="flex gap-x-3">
-                    <div class="font-mono text-purple-400 font-bold w-6">04</div>
-                    <div>初稿納品 → 修正対応</div>
+
+                <!-- Step 04 -->
+                <div class="flex gap-6">
+                    <div class="flex-shrink-0 w-10 h-10 bg-purple-500/10 text-purple-400 rounded-2xl flex items-center justify-center font-bold">04</div>
+                    <div>
+                        <h5 class="font-semibold text-lg mb-1">初稿納品 → 修正対応</h5>
+                        <p class="text-slate-400">初稿をお送りいたします。ご確認いただき、最大3回まで無料で修正対応します。</p>
+                    </div>
+                </div>
+
+                <!-- Step 05（新增） -->
+                <div class="flex gap-6">
+                    <div class="flex-shrink-0 w-10 h-10 bg-purple-500/10 text-purple-400 rounded-2xl flex items-center justify-center font-bold">05</div>
+                    <div>
+                        <h5 class="font-semibold text-lg mb-1">最終納品・お支払い</h5>
+                        <p class="text-slate-400">最終版を納品いたします。ご確認後、後払いにてお支払いをお願いいたします。</p>
+                    </div>
                 </div>
             </div>
-            
-            <div class="mt-6 pt-6 border-t border-slate-700 text-sm">
-                <div class="flex items-start gap-x-2">
-                    <i class="fa-solid fa-gift text-emerald-400 mt-1"></i>
+
+            <!-- 初回特典 -->
+            <div class="mt-12 pt-8 border-t border-slate-700">
+                <div class="flex items-start gap-x-4 bg-emerald-900/30 border border-emerald-700 rounded-3xl p-6">
+                    <i class="fa-solid fa-gift text-3xl text-emerald-400 mt-1"></i>
                     <div>
-                        <span class="font-medium">初回ご依頼の方へ</span><br>
+                        <span class="font-medium text-emerald-300">初回ご依頼の方へ</span><br>
                         <span class="text-emerald-400">無料のノイズ処理サンプルデータ</span>をご提供可能です！<br>
-                        <span class="text-xs text-slate-400">※収録データの任意部分、最大1分間、ノイズ処理の確認用にぜひ！</span>
+                        <span class="text-xs text-slate-400 mt-2 block">※収録データの任意部分、最大1分間、ノイズ処理の確認用にぜひお気軽にご相談ください。</span>
                     </div>
                 </div>
             </div>
@@ -275,7 +339,7 @@
     <div id="works" class="max-w-6xl mx-auto px-6 py-20 bg-slate-900">
                 <div class="text-center mb-12">
             <h2 class="text-4xl font-bold tracking-tight mb-3">音声編集実績</h2>
-            <p class="text-slate-400">（DLsite R-18 販売中一部）</p>
+            <p class="text-slate-400">（DLsite R-18 販売中一部・発売日順）</p>
             
             <!-- 2024年以前連結 -->
             <p class="text-slate-400 mt-2">
@@ -305,7 +369,9 @@
         <!-- 合作聲優區塊（放在実績下面） -->
     <div class="max-w-6xl mx-auto px-6 py-20 border-t border-slate-800 bg-slate-900">
         <div class="text-center mb-12">
-            <p class="text-slate-400">これまでにご一緒させていただいた声優様（順不同・敬称略）</p>
+            <p class="text-slate-400">音声編集を担当した作品に出演された声優・Vtuberの皆様
+
+（順不同・敬称略）</p>
         </div>
 
         <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-8 gap-y-4 text-left max-w-4xl mx-auto text-base">
@@ -431,8 +497,8 @@
                 <option value="">選択してください</option>
                 <option value="ASMR">ASMR</option>
                 <option value="Vtuber">Vtuber</option>
-                <option value="シチュボイス">シチュボイス</option>
-                <option value="耳かき">耳かき</option>
+                <option value="シチュエーションボイス">シチュエーションボイス</option>
+                <option value="ボイスドラマ">ボイスドラマ</option>
                 <option value="その他">その他</option>
             </select>
         </div>
@@ -665,6 +731,70 @@
         url: "https://www.dlsite.com/maniax/work/=/product_id/RJ01355729.html",
         cv: "暁鞠子 / 飴屋ぺろり / 御子柴泉",           // 新增：CV
         circle: "幻想ヒプノ "     // 新增：circle（可選）
+        
+    },
+    {
+        date: "2025年04月25日",
+        title: "【官能小説×ASMR=ドスケベ♡♡♡】マゾメス人妻教師の、ケツ穴献上寝取り懇願♡【恋人の母親×元担任】",
+        url: "https://www.dlsite.com/maniax/work/=/product_id/RJ01363097.html",
+        cv: "佐々木サキ",           // 新增：CV
+        circle: "ゆずゆず製作所"     // 新增：circle（可選）
+        
+    },
+    {
+        date: "2025年04月11日",
+        title: "町内会の性処理係 お試しフェラ",
+        url: "https://www.dlsite.com/maniax/work/=/product_id/RJ01369439.html",
+        cv: "神間みと",           // 新增：CV
+        circle: "East Wisteria"     // 新增：circle（可選）
+        
+    },
+    {
+        date: "2025年04月06日",
+        title: "【オホ声あり】爆乳テイマーちゃんにTS転生したのでモンスターとのえっちを楽しむことにします",
+        url: "https://www.dlsite.com/maniax/work/=/product_id/RJ01362717.html",
+        cv: "御子柴泉",           // 新增：CV
+        circle: "lanc320"     // 新增：circle（可選）
+        
+    },
+    {
+        date: "2025年04月01日",
+        title: "【CV.甘沼みるく/フリートーク付き】偽リノ英雄1～性処理人形と化した英雄の専属メイド～【フォローで得トクWプレゼントCP】",
+        url: "https://www.dlsite.com/maniax/work/=/product_id/RJ01364274.html",
+        cv: "甘沼みるく",           // 新增：CV
+        circle: "OPM/オーピーエム"     // 新增：circle（可選）
+        
+    },
+    {
+        date: "2025年02月10日",
+        title: "- ̗̀ෆ 催○NTRセックス ෆ ̖́- 性知識リセットした幼馴染をドスケベ調教して婚約者から寝取っちゃおう♪",
+        url: "https://www.dlsite.com/maniax/work/=/product_id/RJ01338173.html",
+        cv: "恋鈴桃歌",           // 新增：CV
+        circle: "劇団チェリー"     // 新增：circle（可選）
+        
+    },
+    {
+        date: "2025年05月14日",
+        title: "ふたなり妖魔が退魔師を魅了して、もう一人の退魔師を乗っ取る話",
+        url: "https://www.dlsite.com/maniax/work/=/product_id/RJ01355729.html",
+        cv: "暁鞠子 / 飴屋ぺろり / 御子柴泉",           // 新增：CV
+        circle: "幻想ヒプノ "     // 新增：circle（可選）
+        
+    },
+    {
+        date: "2025年01月31日",
+        title: "結婚式場に相談しに行ったら初めて付き合った元カノと出会って、昔のSEXが忘れられず逆NTR",
+        url: "https://www.dlsite.com/maniax/work/=/product_id/RJ01324706.html",
+        cv: "御子柴泉",           // 新增：CV
+        circle: "妄想屋"     // 新增：circle（可選）
+        
+    },
+    {
+        date: "2025年01月24日",
+        title: "【教師×巨乳】数学教師がエロすぎて補習授業に集中できないから特別授業でぬいてもらった",
+        url: "https://www.dlsite.com/maniax/work/=/product_id/RJ01309830.html",
+        cv: "碧棺らむだ",           // 新增：CV
+        circle: "妄想屋"     // 新增：circle（可選）
         
     }
             // ← 在這裡繼續新增更多作品，例如：
