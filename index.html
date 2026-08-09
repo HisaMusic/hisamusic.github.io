@@ -41,59 +41,73 @@
 <body class="bg-slate-950 text-slate-200">
 <!-- Navbar -->
 <nav class="bg-slate-900/95 border-b border-slate-800 sticky top-0 z-50 backdrop-blur-md">
-    <div class="max-w-6xl mx-auto px-6 py-5 flex justify-between items-center">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 py-4 flex justify-between items-center">
         <!-- Logo -->
         <div class="flex items-center gap-x-3">
-            <div class="w-11 h-11 bg-gradient-to-br from-purple-500 to-indigo-600 rounded-2xl flex items-center justify-center">
-                <i class="fa-solid fa-headset text-white text-2xl"></i>
+            <div class="w-10 h-10 sm:w-11 sm:h-11 bg-gradient-to-br from-purple-500 to-indigo-600 rounded-2xl flex items-center justify-center">
+                <i class="fa-solid fa-headset text-white text-xl sm:text-2xl"></i>
             </div>
             <div>
-                <span class="font-bold text-2xl tracking-tight">HisaMusic</span>
+                <span class="font-bold text-xl sm:text-2xl tracking-tight">HisaMusic</span>
                 <span class="text-xs text-slate-400 block -mt-1">音声編集</span>
             </div>
         </div>
         
-        <!-- 導航連結 -->
-        <div class="flex items-center gap-x-2 md:gap-x-6">
-            <!-- TOP -->
-            <a href="#" 
-               onclick="window.scrollTo({top: 0, behavior: 'smooth'}); return false;"
-               class="nav-link flex flex-col items-center text-xs hover:text-white transition-colors px-3 py-1">
+        <!-- 桌面版導航 -->
+        <div class="hidden md:flex items-center gap-x-6">
+            <a href="#" onclick="window.scrollTo({top: 0, behavior: 'smooth'}); return false;" class="nav-link flex flex-col items-center text-xs hover:text-white transition-colors px-3 py-1">
                 <i class="fa-solid fa-house text-lg"></i>
-                <span class="hidden md:inline">TOP</span>
+                <span>TOP</span>
             </a>
-            <!-- 特典 -->
             <a href="#campaign" class="nav-link flex flex-col items-center text-xs hover:text-white transition-colors px-3 py-1">
-            <i class="fa-solid fa-gift text-lg"></i>
-            <span class="hidden md:inline">キャンペーン</span>
+                <i class="fa-solid fa-gift text-lg"></i>
+                <span>キャンペーン</span>
             </a>
-            <!-- 料金 -->
             <a href="#pricing" class="nav-link flex flex-col items-center text-xs hover:text-white transition-colors px-3 py-1">
                 <i class="fa-solid fa-yen-sign text-lg"></i>
-                <span class="hidden md:inline">料金</span>
+                <span>料金</span>
             </a>
-            <!-- ご依頼の流れ -->
             <a href="#flow" class="nav-link flex flex-col items-center text-xs hover:text-white transition-colors px-3 py-1">
                 <i class="fa-solid fa-list-check text-lg"></i>
-                <span class="hidden md:inline">ご依頼</span>
+                <span>ご依頼</span>
             </a>
-            <!-- 実績 -->
             <a href="#works" class="nav-link flex flex-col items-center text-xs hover:text-white transition-colors px-3 py-1">
                 <i class="fa-solid fa-trophy text-lg"></i>
-                <span class="hidden md:inline">実績</span>
+                <span>実績</span>
             </a>
-            <!-- ご相談・お見積もり -->
             <a href="#contact" class="nav-link flex flex-col items-center text-xs hover:text-white transition-colors px-3 py-1 font-semibold">
                 <i class="fa-solid fa-envelope text-lg"></i>
-                <span class="hidden md:inline">ご相談</span>
+                <span>ご相談</span>
             </a>
-
-            <!-- X 連絡（保持原本樣式） -->
             <a href="https://x.com/HisaMusic" target="_blank" 
-               class="ml-4 px-5 py-2.5 bg-white text-slate-900 font-semibold rounded-2xl text-sm flex items-center gap-x-2 hover:bg-slate-100 transition-all">
+               class="ml-2 px-5 py-2.5 bg-white text-slate-900 font-semibold rounded-2xl text-sm flex items-center gap-x-2 hover:bg-slate-100 transition-all">
                 <i class="fa-brands fa-x-twitter"></i>
-                <span class="hidden md:inline">Xで連絡</span>
+                <span>Xで連絡</span>
             </a>
+        </div>
+
+        <!-- 手機版漢堡按鈕 + X 按鈕 -->
+        <div class="flex items-center gap-3 md:hidden">
+            <a href="https://x.com/HisaMusic" target="_blank" 
+               class="px-4 py-2 bg-white text-slate-900 font-semibold rounded-xl text-sm flex items-center gap-x-1.5">
+                <i class="fa-brands fa-x-twitter"></i>
+            </a>
+            <button id="mobile-menu-btn" class="p-2 text-white hover:bg-slate-800 rounded-lg">
+                <i class="fa-solid fa-bars text-xl"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- 手機選單（預設隱藏） -->
+    <div id="mobile-menu" class="hidden md:hidden bg-slate-900 border-t border-slate-800">
+        <div class="px-4 py-4 space-y-1">
+            <a href="#" onclick="window.scrollTo({top: 0, behavior: 'smooth'}); document.getElementById('mobile-menu').classList.add('hidden'); return false;" 
+               class="block px-4 py-3 rounded-xl hover:bg-slate-800 transition">TOP</a>
+            <a href="#campaign" class="block px-4 py-3 rounded-xl hover:bg-slate-800 transition mobile-nav-link">キャンペーン</a>
+            <a href="#pricing" class="block px-4 py-3 rounded-xl hover:bg-slate-800 transition mobile-nav-link">料金</a>
+            <a href="#flow" class="block px-4 py-3 rounded-xl hover:bg-slate-800 transition mobile-nav-link">ご依頼の流れ</a>
+            <a href="#works" class="block px-4 py-3 rounded-xl hover:bg-slate-800 transition mobile-nav-link">実績</a>
+            <a href="#contact" class="block px-4 py-3 rounded-xl hover:bg-slate-800 transition mobile-nav-link font-semibold">ご相談</a>
         </div>
     </div>
 </nav>
@@ -964,6 +978,23 @@
                 loadMoreBtn.style.display = 'none';
             }
         });
+    </script>
+
+    <script>
+    // 手機選單開關
+    const menuBtn = document.getElementById('mobile-menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+    
+    menuBtn.addEventListener('click', () => {
+        mobileMenu.classList.toggle('hidden');
+    });
+
+    // 點擊選單後自動關閉
+    document.querySelectorAll('.mobile-nav-link').forEach(link => {
+        link.addEventListener('click', () => {
+            mobileMenu.classList.add('hidden');
+        });
+    });
     </script>
 </body>
 </html>
