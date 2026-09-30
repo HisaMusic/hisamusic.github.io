@@ -1,0 +1,1023 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HisaMusic | ASMR・Vtuber音声編集サービス</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Inter:wght@400;500;600&display=swap');
+        
+        body {
+            font-family: 'Noto Sans JP', 'Inter', system-ui, sans-serif;
+        }
+        
+.hero-bg {
+    background-color: #020617; /* 圖片還沒載入時的底色 */
+    background-image:
+        linear-gradient(
+            90deg,
+            rgba(2, 6, 23, 0.88) 0%,
+            rgba(2, 6, 23, 0.62) 42%,
+            rgba(2, 6, 23, 0.28) 72%,
+            rgba(2, 6, 23, 0.18) 100%
+        ),
+        url('images/mascot_asmr_ref.jpeg');
+    background-size: cover;
+    background-position: 72% 22%; /* 偏右、偏上：優先臉與麥克風 */
+    background-repeat: no-repeat;
+}
+        
+        .section-title {
+            position: relative;
+            display: inline-block;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(to right, #a855f7, #6366f1);
+            border-radius: 3px;
+        }
+    </style>
+</head>
+<body class="bg-slate-950 text-slate-200 overflow-x-hidden">
+<!-- Navbar -->
+<nav class="bg-slate-900/95 border-b border-slate-800 sticky top-0 z-50 backdrop-blur-md">
+    <div class="max-w-6xl mx-auto px-4 sm:px-4 sm:px-6 py-4 flex justify-between items-center">
+        <!-- Logo -->
+        <div class="flex items-center gap-x-3">
+            <div class="w-10 h-10 sm:w-11 sm:h-11 bg-gradient-to-br from-purple-500 to-indigo-600 rounded-2xl flex items-center justify-center">
+                <i class="fa-solid fa-headset text-white text-xl sm:text-2xl"></i>
+            </div>
+            <div>
+                <span class="font-bold text-xl sm:text-2xl tracking-tight">HisaMusic</span>
+                <span class="text-xs text-slate-400 block -mt-1">音声編集</span>
+            </div>
+        </div>
+        
+        <!-- 桌面版導航 -->
+        <div class="hidden md:flex items-center gap-x-6">
+            <a href="#" onclick="window.scrollTo({top: 0, behavior: 'smooth'}); return false;" class="nav-link flex flex-col items-center text-xs hover:text-white transition-colors px-3 py-1">
+                <i class="fa-solid fa-house text-lg"></i>
+                <span>TOP</span>
+            </a>
+            <a href="#campaign" class="nav-link flex flex-col items-center text-xs hover:text-white transition-colors px-3 py-1">
+                <i class="fa-solid fa-gift text-lg"></i>
+                <span>キャンペーン</span>
+            </a>
+            <a href="#pricing" class="nav-link flex flex-col items-center text-xs hover:text-white transition-colors px-3 py-1">
+                <i class="fa-solid fa-yen-sign text-lg"></i>
+                <span>料金</span>
+            </a>
+            <a href="#flow" class="nav-link flex flex-col items-center text-xs hover:text-white transition-colors px-3 py-1">
+                <i class="fa-solid fa-list-check text-lg"></i>
+                <span>ご依頼</span>
+            </a>
+            <a href="#works" class="nav-link flex flex-col items-center text-xs hover:text-white transition-colors px-3 py-1">
+                <i class="fa-solid fa-trophy text-lg"></i>
+                <span>実績</span>
+            </a>
+            <a href="#contact" class="nav-link flex flex-col items-center text-xs hover:text-white transition-colors px-3 py-1 font-semibold">
+                <i class="fa-solid fa-envelope text-lg"></i>
+                <span>ご相談</span>
+            </a>
+            <a href="https://x.com/HisaMusic" target="_blank" 
+               class="ml-2 px-5 py-2.5 bg-white text-slate-900 font-semibold rounded-2xl text-sm flex items-center gap-x-2 hover:bg-slate-100 transition-all">
+                <i class="fa-brands fa-x-twitter"></i>
+                <span>Xで連絡</span>
+            </a>
+        </div>
+
+        <!-- 手機版漢堡按鈕 + X 按鈕 -->
+        <div class="flex items-center gap-3 md:hidden">
+            <a href="https://x.com/HisaMusic" target="_blank" 
+               class="px-4 py-2 bg-white text-slate-900 font-semibold rounded-xl text-sm flex items-center gap-x-1.5">
+                <i class="fa-brands fa-x-twitter"></i>
+            </a>
+            <button id="mobile-menu-btn" class="p-2 text-white hover:bg-slate-800 rounded-lg">
+                <i class="fa-solid fa-bars text-xl"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- 手機選單（預設隱藏） -->
+    <div id="mobile-menu" class="hidden md:hidden bg-slate-900 border-t border-slate-800">
+        <div class="px-4 py-4 space-y-1">
+            <a href="#" onclick="window.scrollTo({top: 0, behavior: 'smooth'}); document.getElementById('mobile-menu').classList.add('hidden'); return false;" 
+               class="block px-4 py-3 rounded-xl hover:bg-slate-800 transition">TOP</a>
+            <a href="#campaign" class="block px-4 py-3 rounded-xl hover:bg-slate-800 transition mobile-nav-link">キャンペーン</a>
+            <a href="#pricing" class="block px-4 py-3 rounded-xl hover:bg-slate-800 transition mobile-nav-link">料金</a>
+            <a href="#flow" class="block px-4 py-3 rounded-xl hover:bg-slate-800 transition mobile-nav-link">ご依頼の流れ</a>
+            <a href="#works" class="block px-4 py-3 rounded-xl hover:bg-slate-800 transition mobile-nav-link">実績</a>
+            <a href="#contact" class="block px-4 py-3 rounded-xl hover:bg-slate-800 transition mobile-nav-link font-semibold">ご相談</a>
+        </div>
+    </div>
+</nav>
+
+    <!-- Hero Section -->
+<div class="hero-bg min-h-[70vh] sm:min-h-[80vh] md:min-h-[80vh] flex items-center">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 pt-12 pb-16">
+            <div class="max-w-2xl">
+                <div class="inline-flex items-center gap-x-3 bg-gradient-to-r from-emerald-500/20 to-cyan-500/20 backdrop-blur-md border border-emerald-400/50 rounded-3xl px-8 py-4 mb-10 shadow-xl">
+    <div class="w-4 h-4 bg-emerald-400 rounded-full animate-pulse flex-shrink-0"></div>
+    <span class="text-2xl md:text-3xl font-bold tracking-wider text-white drop-shadow-md">
+        2026年11月～納品依頼受付中！！
+    </span>
+</div>
+                
+                <h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tighter leading-none text-white mb-6">
+                    ASMR・Vtuber<br>
+                    <span class="bg-gradient-to-r from-purple-400 to-indigo-400 bg-clip-text text-transparent">音声編集サービス</span>
+                </h1>
+                
+                <p class="text-2xl text-white/90 mb-10 max-w-lg">
+                    DLsite販売中の担当作品多数！<br>
+                    安心の後払い！お支払いは最終納品後！
+                </p>
+                
+                <div class="flex flex-wrap gap-4">
+                    <a href="https://x.com/HisaMusic" target="_blank"
+                       class="px-9 py-4 bg-white text-slate-900 font-bold rounded-3xl flex items-center gap-x-3 hover:bg-slate-100 transition-all text-lg shadow-xl">
+                        <i class="fa-brands fa-x-twitter text-xl"></i>
+                        <span>お見積・ご相談</span>
+                    </a>
+                    <a href="#pricing"
+                       class="nav-link px-9 py-4 border-2 border-white/70 hover:bg-white/10 text-white font-semibold rounded-3xl flex items-center gap-x-2 transition-all text-lg backdrop-blur-sm">
+                        <span>料金メニュー</span>
+                    </a>
+                </div>
+                
+                <div class="mt-10 flex items-center gap-x-4 text-sm text-white/80">
+                    <div class="flex -space-x-2">
+                        <div class="w-7 h-7 bg-white/30 rounded-full border border-white/40"></div>
+                        <div class="w-7 h-7 bg-white/30 rounded-full border border-white/40"></div>
+                        <div class="w-7 h-7 bg-white/30 rounded-full border border-white/40"></div>
+                    </div>
+                    <div>
+                        <span class="font-semibold text-white">100件以上</span> 納品実績　｜　2026年6月で3周年
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Highlights -->
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 py-16">
+        <div class="grid md:grid-cols-3 gap-6">
+            <div class="bg-slate-900 border border-slate-800 rounded-3xl p-8 service-card">
+                <div class="text-purple-400 mb-4">
+                    <i class="fa-solid fa-check-double text-3xl"></i>
+                </div>
+                <h3 class="font-semibold text-xl mb-2">後払い完全対応</h3>
+                <p class="text-slate-400">最終納品・修正完了後のお支払いで安心。信頼関係を大切にしています！</p>
+            </div>
+            <div class="bg-slate-900 border border-slate-800 rounded-3xl p-8 service-card">
+                <div class="text-purple-400 mb-4">
+                    <i class="fa-solid fa-sync text-3xl"></i>
+                </div>
+                <h3 class="font-semibold text-xl mb-2">3回まで無料修正</h3>
+                <p class="text-slate-400">ご納得いただけるまで丁寧に修正対応いたします！</p>
+            </div>
+            <div class="bg-slate-900 border border-slate-800 rounded-3xl p-8 service-card">
+                <div class="text-purple-400 mb-4">
+                    <i class="fa-solid fa-headset text-3xl"></i>
+                </div>
+                <h3 class="font-semibold text-xl mb-2">豊富な実績</h3>
+                <p class="text-slate-400">DLsite販売中の作品多数担当！<br>
+                全年齢作品、Vtuber配信用作品、シチュボイスも対応可能！</p>
+            </div>
+        </div>
+    </div>
+
+<!-- ============================================
+     3周年＆ホームページ公開記念 期間限定キャンペーン
+     ============================================ -->
+<div id="campaign" class="max-w-6xl mx-auto px-4 sm:px-6 py-16">
+    <div class="bg-gradient-to-br from-purple-900/40 via-slate-900 to-indigo-900/30 border border-purple-500/40 rounded-3xl p-10 md:p-14 shadow-2xl">
+        
+        <!-- 標題區 -->
+        <div class="text-center mb-10">
+            <div class="inline-flex items-center gap-x-2 bg-purple-500/20 text-purple-300 px-4 sm:px-6 py-2 rounded-2xl mb-4">
+                <i class="fa-solid fa-gift text-xl"></i>
+                <span class="font-bold tracking-wider">期間限定キャンペーン</span>
+            </div>
+            
+            <h2 class="text-4xl md:text-5xl font-bold tracking-tight mb-3">
+                3周年＆ホームページ公開記念
+            </h2>
+            <p class="text-3xl md:text-4xl font-bold bg-gradient-to-r from-purple-400 to-indigo-400 bg-clip-text text-transparent">
+                10% OFF 特別割引
+            </p>
+        </div>
+
+        <div class="max-w-4xl mx-auto">
+            <div class="grid md:grid-cols-5 gap-8 items-start">
+                
+                <!-- 左側：活動內容 -->
+                <div class="md:col-span-3">
+                    <div class="space-y-6">
+                        <!-- 期間 -->
+                        <div>
+                            <div class="flex items-center gap-x-3 mb-2">
+                                <i class="fa-solid fa-calendar-alt text-purple-400 text-xl"></i>
+                                <span class="font-semibold text-lg">キャンペーン期間</span>
+                            </div>
+                            <span class="text-purple-300">2026/7/11(土)～2026/12/31(木)</span> まで
+                        </div>
+
+                        <!-- 割引條件 -->
+                        <div>
+                            <div class="flex items-center gap-x-3 mb-3">
+                                <i class="fa-solid fa-tags text-purple-400 text-xl"></i>
+                                <span class="font-semibold text-lg">割引内容</span>
+                            </div>
+                            <ul class="space-y-3 text-lg">
+                                <li class="flex items-start gap-x-3">
+                                    <i class="fa-solid fa-check-circle text-emerald-400 mt-1.5"></i>
+                                    <span>指定のX投稿を<strong class="text-purple-300">いいね＆リポスト</strong>で <span class="font-bold text-2xl text-purple-300">最終料金10% OFF</span></span>
+                                </li>
+                                <li class="flex items-start gap-x-3">
+                                    <i class="fa-solid fa-check-circle text-emerald-400 mt-1.5"></i>
+                                    <span>新規のお客様・過去にご利用い頂いたお客様もOK</span>
+                                </li>
+                                <li class="flex items-start gap-x-3">
+                                    <i class="fa-solid fa-check-circle text-emerald-400 mt-1.5"></i>
+                                    <span>お一人様1回限りご利用いただけます</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 右側：利用方法 -->
+                <div class="md:col-span-2 bg-slate-900/70 border border-slate-700 rounded-2xl p-7">
+                    <h3 class="font-bold text-xl mb-5 flex items-center gap-x-2">
+                        <i class="fa-solid fa-info-circle text-purple-400"></i>
+                        ご利用方法
+                    </h3>
+                    
+                    <ol class="space-y-4 text-[15px]">
+                        <li class="flex gap-x-3">
+                            <span class="font-bold text-purple-400 w-5">1.</span>
+                            <span>指定のX投稿を<strong>いいね＆リポスト</strong>する</span>
+                        </li>
+                        <li class="flex gap-x-3">
+                            <span class="font-bold text-purple-400 w-5">2.</span>
+                            <span>XのDM、E-mail、またはお問い合わせフォームよりご依頼</span>
+                        </li>
+                        <li class="flex gap-x-3">
+                            <span class="font-bold text-purple-400 w-5">3.</span>
+                            <span>リポストした投稿のURLを記載してください</span>
+                        </li>
+                    </ol>
+
+                    <div class="mt-7 pt-6 border-t border-slate-700">
+                        <a href="https://x.com/HisaMusic/status/2075780919340966331" target="_blank"
+                           class="inline-flex w-full items-center justify-center gap-x-2 px-4 sm:px-6 py-3.5 bg-purple-600 hover:bg-purple-500 active:bg-purple-700 transition-all text-white font-bold rounded-2xl text-sm">
+                            <i class="fa-brands fa-x-twitter text-lg"></i>
+                            <span>Xで指定投稿を確認する</span>
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- 注意事項 -->
+        <div class="mt-10 pt-8 border-t border-purple-500/20 text-center">
+            <p class="text-sm text-slate-400">
+                ※割引はいいね＆リポスト確認後、正式なお見積もり金額から適用されます<br>
+                ※他の割引との併用はできません
+            </p>
+        </div>
+
+    </div>
+</div>
+    <!-- Pricing Section -->
+    <div id="pricing" class="max-w-6xl mx-auto px-4 sm:px-6 pt-12 pb-20">
+    <div class="text-center mb-12">
+        <h2 class="text-4xl font-bold tracking-tight mb-3">料金メニュー</h2>
+        <p class="text-slate-400">基本料金とオプションを明確にご案内しています</p>
+    </div>
+
+    <div class="grid lg:grid-cols-5 gap-8">
+        <!-- 基本料金卡片 -->
+        <div class="lg:col-span-3 bg-slate-900 border border-slate-700 rounded-3xl p-8">
+            <div class="flex items-center gap-x-3 mb-6">
+                <div class="px-4 py-1.5 bg-purple-500/10 text-purple-400 rounded-2xl text-sm font-medium">基本料金</div>
+            </div>
+            
+            <div class="mb-8">
+                <div class="flex items-baseline gap-x-2">
+                    <span class="text-5xl font-bold">5,000円</span>
+                    <span class="text-xl text-slate-400">/ 30分まで</span>
+                </div>
+                <div class="text-lg text-purple-400 font-medium mt-1">以降 +150円 / 1分</div>
+                <p class="text-sm text-slate-400 mt-2">※声優様に収録していただいた音声データの総再生時間</p>
+            </div>
+
+            <div class="mb-8">
+                <h4 class="font-semibold mb-4 text-lg">基本料金サービス</h4>
+                <ul class="grid grid-cols-1 md:grid-cols-2 gap-y-2 text-sm">
+                    <li class="flex items-center gap-x-2"><i class="fa-solid fa-check text-emerald-400 w-4"></i> NGテイクカット</li>
+                    <li class="flex items-center gap-x-2"><i class="fa-solid fa-check text-emerald-400 w-4"></i> 効果音挿入（効果音は用意して頂く）</li>
+                    <li class="flex items-center gap-x-2"><i class="fa-solid fa-check text-emerald-400 w-4"></i> 間の調整</li>
+                    <li class="flex items-center gap-x-2"><i class="fa-solid fa-check text-emerald-400 w-4"></i> 音量調整</li>
+                    <li class="flex items-center gap-x-2"><i class="fa-solid fa-check text-emerald-400 w-4"></i> ノイズ除去・軽減</li>
+                    <li class="flex items-center gap-x-2"><i class="fa-solid fa-check text-emerald-400 w-4"></i> 3回まで無料修正</li>
+                </ul>
+            </div>
+
+            <div>
+                <h4 class="font-semibold mb-4 text-lg">提出いただくデータ</h4>
+                <ul class="text-sm space-y-1.5 text-slate-300">
+                    <li>• 音声データ（.wavファイル推奨）</li>
+                    <li>• ご自身で用意した効果音データ（効果音挿入をご希望される場合）</li>
+                    <li>• 台本データ（PDFファイル推奨）</li>
+                    <li>• 完成品の用途</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- 納品形式 & 注意事項 -->
+        <div class="lg:col-span-2 bg-slate-900 border border-slate-700 rounded-3xl p-8 flex flex-col">
+            <h4 class="font-semibold mb-4 text-lg">納品形式</h4>
+            <ul class="text-sm space-y-2 text-slate-300 flex-1">
+                <li>• .wavフォーマット</li>
+                <li>• ステレオ／モノラル</li>
+                <li>• 16bit / 24bit</li>
+                <li>• 44.1kHz / 48kHz / 96kHz</li>
+            </ul>
+            <div class="mt-6 pt-6 border-t border-slate-700 text-xs text-slate-400">
+                ※指定がない場合は標準のステレオ 24bit/48kHz .wavフォーマット納品となります。
+            </div>
+        </div>
+
+        <!-- オプション -->
+        <div class="lg:col-span-5 bg-slate-900 border border-slate-700 rounded-3xl p-8">
+            <div class="flex items-center gap-x-3 mb-6">
+                <div class="px-4 py-1.5 bg-purple-500/10 text-purple-400 rounded-2xl text-sm font-medium">オプション</div>
+                <span class="text-xs text-slate-400">（データ確認後別途見積）</span>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-x-8 gap-y-2 text-sm">
+                <div>
+                    <ul class="space-y-2">
+                        <li class="flex gap-x-2"><span class="text-purple-400">•</span> 効果音データお任せ <span class="text-red-400 text-xs font-bold">！人気！</span></li>
+                        <li class="flex gap-x-2"><span class="text-purple-400">•</span> 複数メインキャラ作品の編集</li>
+                        <li class="flex gap-x-2"><span class="text-purple-400">•</span> ループ音声トラック編集</li>
+                        <li class="flex gap-x-2"><span class="text-purple-400">•</span> 左右パン振り</li>
+                        <li class="flex gap-x-2"><span class="text-purple-400">•</span> 耳かき音声作品編集</li>
+                    </ul>
+                </div>
+                <div>
+                    <ul class="space-y-2">
+                        <li class="flex gap-x-2"><span class="text-purple-400">•</span> 男性ボイス音声作品編集</li>
+                        <li class="flex gap-x-2"><span class="text-purple-400">•</span> クレジットへの記載不要</li>
+                        <li class="flex gap-x-2"><span class="text-purple-400">•</span> 特急プラン（納期要相談）</li>
+                        <li class="flex gap-x-2"><span class="text-purple-400">•</span> その他カスタム要望</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- ご依頼の流れ -->
+        <div id="flow" class="lg:col-span-5 bg-slate-900 border border-slate-700 rounded-3xl p-8">
+            <h4 class="font-semibold mb-8 text-2xl">ご依頼の流れ</h4>
+            
+            <div class="space-y-12">
+                <!-- Step 01 -->
+                <div class="flex gap-6">
+                    <div class="flex-shrink-0 w-10 h-10 bg-purple-500/10 text-purple-400 rounded-2xl flex items-center justify-center font-bold">01</div>
+                    <div class="flex-1">
+                        <h5 class="font-semibold text-lg mb-3">データ確認</h5>
+                        <p class="text-slate-400 mb-4">音声データ、台本などをお送りいただき、内容を確認いたします。</p>
+                        
+                        <div class="bg-slate-800 rounded-2xl p-5 text-sm">
+                            <p class="font-medium mb-3 text-purple-300">提出いただくデータ</p>
+                            <ul class="space-y-2 text-slate-300">
+                                <li>• 音声データ（.wavファイル推奨）</li>
+                                <li>• ご自身で用意した効果音データ（効果音挿入をご希望される場合）</li>
+                                <li>• 台本データ（PDFファイル推奨）</li>
+                                <li>• 完成品の用途</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 02 -->
+                <div class="flex gap-6">
+                    <div class="flex-shrink-0 w-10 h-10 bg-purple-500/10 text-purple-400 rounded-2xl flex items-center justify-center font-bold">02</div>
+                    <div>
+                        <h5 class="font-semibold text-lg mb-1">お見積もり・見積書作成</h5>
+                        <p class="text-slate-400">
+                            データをいただきましたら、通常2～3日以内に見積書をご送付いたします。<br>
+                            内容・金額にご納得いただけましたら正式依頼となります。
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Step 03 -->
+                <div class="flex gap-6">
+                    <div class="flex-shrink-0 w-10 h-10 bg-purple-500/10 text-purple-400 rounded-2xl flex items-center justify-center font-bold">03</div>
+                    <div>
+                        <h5 class="font-semibold text-lg mb-1">依頼確定 → 注文請書のご送付</h5>
+                        <p class="text-slate-400">注文請書をご送付いただき、正式に作業を開始いたします。</p>
+                    </div>
+                </div>
+
+                <!-- Step 04 -->
+                <div class="flex gap-6">
+                    <div class="flex-shrink-0 w-10 h-10 bg-purple-500/10 text-purple-400 rounded-2xl flex items-center justify-center font-bold">04</div>
+                    <div>
+                        <h5 class="font-semibold text-lg mb-1">初稿納品 → 修正対応</h5>
+                        <p class="text-slate-400">初稿をお送りいたします。ご確認いただき、最大3回まで無料で修正対応します。</p>
+                    </div>
+                </div>
+
+                <!-- Step 05（新增） -->
+                <div class="flex gap-6">
+                    <div class="flex-shrink-0 w-10 h-10 bg-purple-500/10 text-purple-400 rounded-2xl flex items-center justify-center font-bold">05</div>
+                    <div>
+                        <h5 class="font-semibold text-lg mb-1">最終納品・お支払い</h5>
+                        <p class="text-slate-400">最終版を納品いたします。ご確認後、後払いにてお支払いをお願いいたします。</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 初回特典 -->
+            <div class="mt-12 pt-8 border-t border-slate-700">
+                <div class="flex items-start gap-x-4 bg-emerald-900/30 border border-emerald-700 rounded-3xl p-6">
+                    <i class="fa-solid fa-gift text-3xl text-emerald-400 mt-1"></i>
+                    <div>
+                        <span class="font-medium text-emerald-300">初回ご依頼の方へ</span><br>
+                        <span class="text-emerald-400">無料のノイズ処理サンプルデータ</span>をご提供可能です！<br>
+                        <span class="text-xs text-slate-400 mt-2 block">※収録データの任意部分、最大1分間、ノイズ処理の確認用にぜひお気軽にご相談ください。</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+     <!-- 実績 Section -->
+    <div id="works" class="max-w-6xl mx-auto px-4 sm:px-6 py-20 bg-slate-900">
+                <div class="text-center mb-12">
+            <h2 class="text-4xl font-bold tracking-tight mb-3">音声編集実績</h2>
+            <p class="text-slate-400">（DLsite R-18 販売中一部・発売日順）</p>
+            
+            <!-- 2024年以前連結 -->
+            <p class="text-slate-400 mt-2">
+                ※2024年以前の実績は
+                <a href="http://tinyurl.com/2h42zjkh" 
+                   target="_blank"
+                   class="text-purple-400 hover:text-purple-300 underline">
+                    DLsite販売中担当作品一覧へ
+                </a>
+            </p>
+
+     
+        </div>
+
+        <div id="works-grid" class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- 作品會由 JavaScript 自動填入 -->
+        </div>
+
+        <div class="text-center mt-10">
+            <button id="load-more" 
+                    class="px-8 py-4 bg-white/10 hover:bg-white/20 border border-white/30 rounded-3xl text-white font-medium transition-all">
+                もっと見る
+            </button>
+        </div>
+    </div>
+    
+        <!-- 合作聲優區塊（放在実績下面） -->
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 py-20 border-t border-slate-800 bg-slate-900">
+        <div class="text-center mb-12">
+            <p class="text-slate-400">音声編集を担当した作品に出演された声優・Vtuberの皆様
+
+（順不同・敬称略）</p>
+        </div>
+
+        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-8 gap-y-4 text-left max-w-4xl mx-auto text-base">
+            <div>・御子柴泉</div>
+            <div>・藤村莉央</div>
+            <div>・涼花みなせ</div>
+            <div>・乙倉ゆい</div>
+            <div>・恋鈴桃歌</div>
+            <div>・大山チロル</div>
+            <div>・秋山はるる</div>
+            <div>・涼貴涼</div>
+            <div>・西瓜すいか</div>
+            <div>・分倍河原シホ</div>
+            <div>・ありのりあ</div>
+            <div>・海音ミヅチ</div>
+            <div>・川乃瀬由羽</div>
+            <div>・道楽みぃ</div>
+            <div>・暁鞠子</div>
+            <div>・琴音有波</div>
+            <div>・こやまはる</div>
+            <div>・鳴宮なる</div>
+            <div>・御崎ひより</div>
+            <div>・杏都める</div>
+            <div>・砂糖しお</div>
+            <div>・沢野ぽぷら</div>
+            <div>・こさめ</div>
+            <div>・常盤はなこ</div>
+            <div>・愛犬茶々丸</div>
+            <div>・ゆにこ</div>
+            <div>・木蜜甜花</div>
+            <div>・翠兎みおん</div>
+            <div>・月見れもん</div>
+            <div>・水野七海</div>
+            <div>・雲雀ゆい</div>
+            <div>・華南シズク</div>
+            <div>・佐々木サキ</div>
+            <div>・飴屋ぺろり</div>
+            <div>・神間みと</div>
+            <div>・甘沼みるく</div>
+            <div>・碧棺らむだ</div>
+            <div>・双葉なつき</div>
+            <div>・にのみや紬</div>
+            <div>・町谷めろ</div>
+            <div>・風慈宮ユキ</div>
+            <div>・浪実みお</div>
+            <div>・天伊トイキ</div>
+            <div>・猫乃しろね</div>
+            <div>・たつ嬢</div>
+            <div>・桃音たぉ</div>
+            <div>・小倉結衣</div>
+            <div>・佐京柚音</div>
+            <div>・瀬戸田リユウ</div>
+            <div>・小粋</div>
+        </div>
+
+        <p class="text-slate-500 text-sm mt-12 text-center">
+            
+            いつも素晴らしい演技をありがとうございます！<br>
+            これからもどうぞよろしくお願いいたします！
+        </p>
+    </div>
+    <!-- 新增的 Email 區塊 -->
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 py-12 bg-slate-900 border border-slate-700 rounded-3xl mt-8">
+        <div class="text-center">
+            <div class="inline-flex items-center gap-x-3 bg-emerald-500/10 text-emerald-400 px-5 py-2 rounded-2xl mb-6">
+                <i class="fa-solid fa-envelope"></i>
+                <span class="font-medium">メールでのお問い合わせも歓迎</span>
+            </div>
+            
+            <h3 class="text-2xl font-semibold mb-3">E-mail</h3>
+            <a href="mailto:hisakopmusic@gmail.com" 
+               class="text-2xl font-mono text-emerald-400 hover:text-emerald-300 transition-colors">
+                hisakopmusic@gmail.com
+            </a>
+            <p class="text-slate-400 mt-3">通常24時間以内に返信いたします</p>
+        </div>
+    </div>
+
+    <!-- CTA -->
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 py-20 text-center">
+        <h2 class="text-4xl font-bold tracking-tight mb-4">ご相談・お見積もりは<br>いつでもお気軽に</h2>
+        <p class="text-xl text-slate-300 mb-10">XのDMからお待ちしています</p>
+        
+        <a href="https://x.com/HisaMusic" target="_blank"
+           class="inline-flex items-center gap-x-3 px-10 py-5 bg-white hover:bg-slate-100 transition-all text-slate-900 font-bold text-xl rounded-3xl shadow-xl">
+            <i class="fa-brands fa-x-twitter text-2xl"></i>
+            <span>X（Twitter）で今すぐ連絡する</span>
+        </a>
+        
+
+    </div>
+<!-- 聯絡表單 -->
+<div id="contact" class="max-w-2xl mx-auto px-4 sm:px-6 py-16">
+    <div class="text-center mb-10">
+        <h2 class="text-3xl font-bold tracking-tight mb-3">お問い合わせ・ご相談</h2>
+     
+    </div>
+
+    <form action="https://api.web3forms.com/submit" method="POST" class="space-y-6">
+        <!-- 必填的 Access Key -->
+        <input type="hidden" name="access_key" value="8285befd-5afc-4596-a2bf-05a6c7982bff">
+
+        <!-- 可選：隱藏欄位 -->
+        <input type="hidden" name="subject" value="HisaMusic 網站からの問い合わせ">
+        <input type="hidden" name="from_name" value="HisaMusic 公式サイト">
+
+        <div class="grid md:grid-cols-2 gap-6">
+            <!-- お名前 -->
+            <div>
+                <label class="block text-sm font-medium mb-2">お名前 <span class="text-red-400">*</span></label>
+                <input type="text" name="name" required 
+                       class="w-full px-4 py-3 bg-slate-800 border border-slate-700 rounded-2xl focus:outline-none focus:border-purple-500 text-white">
+            </div>
+
+            <!-- メールアドレス -->
+            <div>
+                <label class="block text-sm font-medium mb-2">メールアドレス <span class="text-red-400">*</span></label>
+                <input type="email" name="email" required 
+                       class="w-full px-4 py-3 bg-slate-800 border border-slate-700 rounded-2xl focus:outline-none focus:border-purple-500 text-white">
+            </div>
+        </div>
+
+        <!-- 作品の種類 -->
+        <div>
+            <label class="block text-sm font-medium mb-2">作品の種類</label>
+            <select name="作品の種類" class="w-full px-4 py-3 bg-slate-800 border border-slate-700 rounded-2xl focus:outline-none focus:border-purple-500 text-white">
+                <option value="">選択してください</option>
+                <option value="ASMR">ASMR</option>
+                <option value="Vtuber">Vtuber</option>
+                <option value="シチュエーションボイス">シチュエーションボイス</option>
+                <option value="ボイスドラマ">ボイスドラマ</option>
+                <option value="その他">その他</option>
+            </select>
+        </div>
+
+        <!-- メッセージ -->
+        <div>
+            <label class="block text-sm font-medium mb-2">ご相談内容・メッセージ <span class="text-red-400">*</span></label>
+            <textarea name="message" rows="6" required 
+                      class="w-full px-4 py-3 bg-slate-800 border border-slate-700 rounded-3xl focus:outline-none focus:border-purple-500 text-white resize-y"></textarea>
+        </div>
+
+        <!-- 送信ボタン -->
+        <button type="submit" 
+                class="w-full py-4 bg-white text-slate-900 font-bold rounded-3xl hover:bg-slate-100 transition-all flex items-center justify-center gap-x-2">
+            <span>送信する</span>
+        </button>
+
+        <p class="text-center text-xs text-slate-500 mt-4">
+            送信後、自動で確認メールが届きます。<br>
+            通常24時間以内にご返信いたします。
+        </p>
+    </form>
+</div>
+    <!-- Footer -->
+    <footer class="border-t border-slate-800 py-10">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 text-center text-sm text-slate-500">
+            <p>© 2026 HisaMusic | 音声編集専門</p>
+            <p class="mt-1">ASMR・Vtuber・同人音声の音声編集をお手伝いします</p>
+        </div>
+    </footer>
+
+    <!-- 跳轉修正 script -->
+    <script>
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', function(e) {
+                const targetId = this.getAttribute('href').substring(1);
+                const targetElement = document.getElementById(targetId);
+                
+                if (targetElement) {
+                    e.preventDefault();
+                    const navHeight = 85;
+                    const elementPosition = targetElement.getBoundingClientRect().top;
+                    const offsetPosition = elementPosition + window.scrollY - navHeight;
+
+                    window.scrollTo({
+                        top: offsetPosition,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    </script>
+    
+        <script>
+        // ==== 你的實績資料（在這裡新增或修改）====
+        const works = [
+        {
+        date: "2026年09月16日",
+        title: "乗っ取られる百合カップル～怪異の棲む家【KU100】",
+        url: "https://www.dlsite.com/maniax/work/=/product_id/RJ01717781.html",
+        cv: "川乃瀬由羽 / 恋鈴桃歌",           // 新增：CV
+        circle: "幻想ヒプノ"       // 新增：circle（可選）
+    },      
+        {
+        date: "2026年08月28日",
+        title: "公有奴○制度のある世界・輪○調教編(最終話)",
+        url: "https://www.dlsite.com/maniax/work/=/product_id/RJ01703423.html",
+        cv: "西瓜すいか",           // 新增：CV
+        circle: "ゆずゆず製作所"       // 新增：circle（可選）
+    },        
+        {
+        date: "2026年08月5日",
+        title: "【機械洗脳】あなたたちは私の理想のVtuber ～不仲の二人が機械で人格上書きされて完璧な百合ユニットへと変わる～【KU100】",
+        url: "https://www.dlsite.com/maniax/work/=/product_id/RJ01679077.html",
+        cv: "沢野ぽぷら / 砂糖しお / ありのりあ",           // 新增：CV
+        circle: "幻想ヒプノ"       // 新增：circle（可選）
+    },    
+        {
+        date: "2026年07月25日",
+        title: "【三人同時責め】熟睡中のあなたを夜○いで○すサキュバス三姉妹。優しい長女・甘々次女・元気な三女に一晩中何度も中出しをねだられ、精液を最後の一滴まで搾り尽くされる",
+        url: "https://www.dlsite.com/maniax/work/=/product_id/RJ01668249.html",
+        cv: "木蜜甜花 / 杏都める / 翠兎みおん",           // 新增：CV
+        circle: "めいどるーちぇ"       // 新增：circle（可選）
+    },
+                   {
+        date: "2026年07月14日",
+        title: "どれいん！屈強な冒険者が男らしさと大人らしさをドレインされて貧弱少年インキュバスに落ちるまで",
+        url: "https://www.dlsite.com/maniax/work/=/product_id/RJ01648181.html",
+        cv: "道楽みぃ",           // 新增：CV
+        circle: "俺得本舗 別館",       // 新增：circle（可選）
+        star: "※音声編集協力"
+    },
+                {
+        date: "2026年06月27日",
+        title: "【独占欲強め♡嫉妬丸出し♡】幼なじみに“どれだけ愛されてるか”身体でたっぷりわからされる",
+        url: "https://www.dlsite.com/maniax/work/=/product_id/RJ01647454.html",
+        cv: "杏都める",           // 新增：CV
+        circle: "めるしぃ工房 "       // 新增：circle（可選）
+    },
+        {
+        date: "2026年06月10日",
+        title: "【隷属化洗脳】ヒロイン連鎖支配 〜正義は堕ち、愛は崇拝に変わる〜【KU100】】",
+        url: "https://www.dlsite.com/maniax/work/=/product_id/RJ01642274.html",
+        cv: "御崎ひより / 涼貴涼 / 海音ミヅチ",           // 新增：CV
+        circle: "幻想ヒプノ "       // 新增：circle（可選）
+    },
+        {
+        date: "2026年05月16日",
+        title: "搾精家畜♡どちゅけべサキュバスちゃんの美味しい精子牧場♡】",
+        url: "https://www.dlsite.com/maniax/work/=/product_id/RJ01614299.html",
+        cv: "愛犬茶々丸",           // 新增：CV
+        circle: "あまぴた。"       // 新增：circle（可選）
+    },
+        {
+        date: "2026年05月01日",
+        title: "【オホ声×無様エロ】裏垢バレ、クズアイドル監禁・完全屈服～アダルト配信者堕ち【総再生時間:2時間超え】",
+        url: "https://www.dlsite.com/maniax/work/=/product_id/RJ01591215.html",
+        cv: "ゆにこ",           // 新增：CV
+        circle: "フォルシティア "       // 新增：circle（可選）
+    },
+        {
+        date: "2026年04月29日",
+        title: "【短時間×高満足】失礼いたします、射精のお時間です。〜性処理メイド3人による全方位ご奉仕即ヌキ音声集〜【KU100収録】",
+        url: "https://www.dlsite.com/maniax/work/=/product_id/RJ01615133.html",
+        cv: "木蜜甜花 / 杏都める / 翠兎みおん",           // 新增：CV
+        circle: "めいどるーちぇ"       // 新增：circle（可選）
+    },
+    {
+        date: "2026年03月05日",
+        title: "凛音ちゃんの売春事情～あんた、私を買いなさい！～",
+        url: "https://www.dlsite.com/maniax/work/=/product_id/RJ01578217.html",
+        cv: "月見れもん",           // 新增：CV
+        circle: "ゆずゆず製作所"       // 新增：circle（可選）
+        
+    },
+    {
+        date: "2026年03月05日",
+        title: "【下痢/おなら】登校中のトイレ事情〜ADV式音声作品〜",
+        url: "https://www.dlsite.com/maniax/work/=/product_id/RJ01469487.html",
+        cv: "	西瓜すいか / 海音ミヅチ / 御子柴泉 / 鳴宮なる / ありのりあ",           // 新增：CV
+        
+        circle: "お漏らしふぇち部",      // 新增：circle（可選）
+        star: "※音声編集協力"
+    },
+    {
+        date: "2026年02月25日",
+        title: "機械によって悪へ堕ちていく正義のヒロイン～快楽に支配された使命と愛【KU100】",
+        url: "https://www.dlsite.com/maniax/work/=/product_id/RJ01562550.html",
+        cv: "藤村莉央 / 水野七海",           // 新增：CV
+        circle: "幻想ヒプノ"       // 新增：circle（可選）
+    },
+    {
+        date: "2026年02月13日",
+        title: "カシカリえっち",
+        url: "https://www.dlsite.com/maniax/work/=/product_id/RJ01555450.html",
+        cv: "ゆにこ",           // 新增：CV
+        circle: "いんくりーしんぐりー",        // 新增：circle（可選）
+        star: "※音声編集協力"
+    },
+    {
+        date: "2026年01月10日",
+        title: "【おしっこ我慢×百合】彼女が彼女におしっこを我慢してもらう",
+        url: "https://www.dlsite.com/maniax/work/=/product_id/RJ01492158.html",
+        cv: "西瓜すいか / 鳴宮なる",           // 新增：CV
+        circle: "お漏らしふぇち部 ",        // 新增：circle（可選）
+        star: "※音声編集協力"
+    },
+    {
+        date: "2025年12月24日",
+        title: "公有奴○制度のある世界2・調教報告編",
+        url: "https://www.dlsite.com/maniax/work/=/product_id/RJ01518933.html",
+        cv: "西瓜すいか",           // 新增：CV
+        circle: "ゆずゆず製作所"        // 新增：circle（可選）
+    },
+    {
+        date: "2025年12月19日",
+        title: "クールで意地悪な事務メイドのマゾチンポ矯正ご奉仕~ご主人様は一生マゾ確定です~",
+        url: "https://www.dlsite.com/maniax/work/=/product_id/RJ01527060.html",
+        cv: "秋山はるる",           // 新增：CV
+        circle: "かにかに小屋 "      // 新增：circle（可選）
+        
+    },
+    {
+        date: "2025年12月13日",
+        title: "【純愛官能小説×ASMR】義妹は、もう嫌なの。",
+        url: "https://www.dlsite.com/maniax/work/=/product_id/RJ01510062.html",
+        cv: "西瓜すいか",           // 新增：CV
+        circle: "ゆずゆず製作所"       // 新增：circle（可選）
+        
+    },
+    {
+        date: "2025年12月07日",
+        title: "異世界召喚されて魔王を倒したので爆乳エルフのお嫁さんと子作りスローライフを送ろうと思います",
+        url: "https://www.dlsite.com/maniax/work/=/product_id/RJ01511141.html",
+        cv: "大山チロル",           // 新增：CV
+        circle: "lanc320"      // 新增：circle（可選）
+      
+    },
+    {
+        date: "2025年12月06日",
+        title: "【おしっこ我慢】委員長に嫌々おしっこを我慢してもらって… 〜ADV式音声作品〜",
+        url: "https://www.dlsite.com/maniax/work/=/product_id/RJ01439083.html",
+        cv: "西瓜すいか / ありのりあ",           // 新增：CV
+        circle: "お漏らしふぇち部 ",        // 新增：circle（可選）
+        star: "※音声編集協力"
+    },
+    {
+        date: "2025年10月12日",
+        title: "ふたなり魔王軍司令官・雷霆のエリザベスの変愛。",
+        url: "https://www.dlsite.com/maniax/work/=/product_id/RJ01484340.html",
+        cv: "西瓜すいか",           // 新增：CV
+        circle: "ゆずゆず製作所"       // 新增：circle（可選）
+        
+    },
+    {
+        date: "2025年10月05日",
+        title: "美人で巨乳なお義姉ちゃんにオナバレしたらえっちな意地悪されちゃいました",
+        url: "https://www.dlsite.com/maniax/work/=/product_id/RJ01471263.html",
+        cv: "秋山はるる",           // 新增：CV
+        circle: "lanc320"    // 新增：circle（可選）
+        
+    },
+    {
+        date: "2025年09月18日",
+        title: "【BSS】お義姉ちゃん、本当に避妊してなかったの！?【KU100】",
+        url: "https://www.dlsite.com/maniax/work/=/product_id/RJ01466822.html",
+        cv: "西瓜すいか",           // 新增：CV
+        circle: "ゆずゆず製作所"     // 新增：circle（可選）
+       
+    },
+    {
+        date: "2025年06月13日",
+        title: "【異世界転移×ASMR】俺の妹がヤンデレ魔王だと判明した件～お兄ちゃん、私を○して♡～",
+        url: "https://www.dlsite.com/maniax/work/=/product_id/RJ01389384.html",
+        cv: "雲雀ゆい",           // 新增：CV
+        circle: "ゆずゆず製作所"        // 新增：circle（可選）
+        
+    },
+    {
+        date: "2025年06月09日",
+        title: "町内会の性処理係 陰キャJKは早くシたい！！",
+        url: "https://www.dlsite.com/maniax/work/=/product_id/RJ01407361.html",
+        cv: "華南シズク",           // 新增：CV
+        circle: "East Wisteria "        // 新增：circle（可選）
+        
+    },
+    {
+        date: "2025年05月30日",
+        title: "【切ない兄妹愛】令嬢淫堕〜お兄様、奴○の雪乃を×してください〜",
+        url: "https://www.dlsite.com/maniax/work/=/product_id/RJ01397567.html",
+        cv: "月見れもん",           // 新增：CV
+        circle: "ゆずゆず製作所"      // 新增：circle（可選）
+        
+    },
+    {
+        date: "2025年05月23日",
+        title: "【贖罪×凌○】刺青極妻、淫罪奉仕",
+        url: "https://www.dlsite.com/maniax/work/=/product_id/RJ01394299.html",
+        cv: "佐々木サキ",           // 新增：CV
+        circle: "ゆずゆず製作所"        // 新增：circle（可選）
+        
+    },
+    {
+        date: "2025年05月14日",
+        title: "ふたなり妖魔が退魔師を魅了して、もう一人の退魔師を乗っ取る話",
+        url: "https://www.dlsite.com/maniax/work/=/product_id/RJ01355729.html",
+        cv: "暁鞠子 / 飴屋ぺろり / 御子柴泉",           // 新增：CV
+        circle: "幻想ヒプノ "     // 新增：circle（可選）
+        
+    },
+    {
+        date: "2025年04月25日",
+        title: "【官能小説×ASMR=ドスケベ♡♡♡】マゾメス人妻教師の、ケツ穴献上寝取り懇願♡【恋人の母親×元担任】",
+        url: "https://www.dlsite.com/maniax/work/=/product_id/RJ01363097.html",
+        cv: "佐々木サキ",           // 新增：CV
+        circle: "ゆずゆず製作所"     // 新增：circle（可選）
+        
+    },
+    {
+        date: "2025年04月11日",
+        title: "町内会の性処理係 お試しフェラ",
+        url: "https://www.dlsite.com/maniax/work/=/product_id/RJ01369439.html",
+        cv: "神間みと",           // 新增：CV
+        circle: "East Wisteria"     // 新增：circle（可選）
+        
+    },
+    {
+        date: "2025年04月06日",
+        title: "【オホ声あり】爆乳テイマーちゃんにTS転生したのでモンスターとのえっちを楽しむことにします",
+        url: "https://www.dlsite.com/maniax/work/=/product_id/RJ01362717.html",
+        cv: "御子柴泉",           // 新增：CV
+        circle: "lanc320"     // 新增：circle（可選）
+        
+    },
+    {
+        date: "2025年04月01日",
+        title: "【CV.甘沼みるく/フリートーク付き】偽リノ英雄1～性処理人形と化した英雄の専属メイド～【フォローで得トクWプレゼントCP】",
+        url: "https://www.dlsite.com/maniax/work/=/product_id/RJ01364274.html",
+        cv: "甘沼みるく",           // 新增：CV
+        circle: "OPM/オーピーエム"     // 新增：circle（可選）
+        
+    },
+    {
+        date: "2025年02月10日",
+        title: "- ̗̀ෆ 催○NTRセックス ෆ ̖́- 性知識リセットした幼馴染をドスケベ調教して婚約者から寝取っちゃおう♪",
+        url: "https://www.dlsite.com/maniax/work/=/product_id/RJ01338173.html",
+        cv: "恋鈴桃歌",           // 新增：CV
+        circle: "劇団チェリー"     // 新增：circle（可選）
+        
+    },
+    {
+        date: "2025年01月31日",
+        title: "結婚式場に相談しに行ったら初めて付き合った元カノと出会って、昔のSEXが忘れられず逆NTR",
+        url: "https://www.dlsite.com/maniax/work/=/product_id/RJ01324706.html",
+        cv: "御子柴泉",           // 新增：CV
+        circle: "妄想屋"     // 新增：circle（可選）
+        
+    },
+    {
+        date: "2025年01月24日",
+        title: "【教師×巨乳】数学教師がエロすぎて補習授業に集中できないから特別授業でぬいてもらった",
+        url: "https://www.dlsite.com/maniax/work/=/product_id/RJ01309830.html",
+        cv: "碧棺らむだ",           // 新增：CV
+        circle: "妄想屋"     // 新增：circle（可選）
+        
+    }
+            // ← 在這裡繼續新增更多作品，例如：
+            // , { date: "2024年XX月XX日", title: "作品名稱", url: "https://..." }
+        ];
+
+        let displayed = 6;   // 預設顯示6個
+        const grid = document.getElementById('works-grid');
+        const loadMoreBtn = document.getElementById('load-more');
+
+        function renderWorks(count) {
+            grid.innerHTML = '';
+            works.slice(0, count).forEach(work => {
+                const card = document.createElement('div');
+                card.className = "bg-slate-800 border border-slate-700 rounded-3xl p-6 hover:border-purple-500/50 transition-all";
+             card.innerHTML = `
+    <div class="text-emerald-400 text-sm mb-3">${work.date}</div>
+    <h3 class="font-semibold text-lg leading-tight mb-3">${work.title}</h3>
+    
+    ${work.cv ? `<p class="text-purple-300 text-sm mb-2">CV: ${work.cv}</p>` : ''}
+    ${work.genre ? `<p class="text-slate-400 text-sm mb-2">${work.genre}</p>` : ''}
+    ${work.circle ? `<p class="text-slate-400 text-sm mb-4">${work.circle}</p>` : ''}
+    ${work.star ? `<p class="text-slate-300 text-sm mb-4">${work.star}</p>` : ''}
+    
+    <a href="${work.url}" target="_blank" 
+       class="text-purple-400 hover:text-purple-300 text-sm inline-flex items-center gap-x-2">
+        DLsiteで作品を見る →
+    </a>
+`;
+                grid.appendChild(card);
+            });
+        }
+
+        // 初始顯示
+        renderWorks(displayed);
+
+        // 顯示更多按鈕
+        loadMoreBtn.addEventListener('click', () => {
+            displayed += 6;
+            renderWorks(displayed);
+            
+            if (displayed >= works.length) {
+                loadMoreBtn.style.display = 'none';
+            }
+        });
+    </script>
+
+    <script>
+    // 手機選單開關
+    const menuBtn = document.getElementById('mobile-menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+    
+    menuBtn.addEventListener('click', () => {
+        mobileMenu.classList.toggle('hidden');
+    });
+
+    // 點擊選單後自動關閉
+    document.querySelectorAll('.mobile-nav-link').forEach(link => {
+        link.addEventListener('click', () => {
+            mobileMenu.classList.add('hidden');
+        });
+    });
+    </script>
+</body>
+</html>
