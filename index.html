@@ -13,20 +13,32 @@
             font-family: 'Noto Sans JP', 'Inter', system-ui, sans-serif;
         }
         
-.hero-bg {
-  background-color: #0f172a; /* 画像読み込み前の色 */
-  background-image:
-    linear-gradient(
-      90deg,
-      rgba(15, 23, 42, 0.88) 0%,
-      rgba(15, 23, 42, 0.62) 42%,
-      rgba(15, 23, 42, 0.28) 70%,
-      rgba(15, 23, 42, 0.18) 100%
-    ),
-    url('images/mascot_asmr_ref.jpeg');
-  background-size: cover;
-  background-position: 68% 28%; /* 顔＋マイクを優先 */
-  background-repeat: no-repeat;
+.hero {
+  display: grid;
+  grid-template-columns: 1fr minmax(280px, 46%);
+  min-height: 72vh;
+  background: #0f172a;
+  overflow: hidden;
+}
+
+.hero-art img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 70% 20%;
+  display: block;
+}
+
+@media (max-width: 768px) {
+  .hero {
+    grid-template-columns: 1fr;
+  }
+  .hero-art {
+    min-height: 42vh;
+  }
+  .hero-art img {
+    object-position: 60% 15%;
+  }
 }
         
         .section-title {
@@ -47,6 +59,24 @@
     </style>
 </head>
 <body class="bg-slate-950 text-slate-200 overflow-x-hidden">
+    <section class="hero">
+    <div class="hero-copy">
+      <!-- 今ヒーローに書いてある文字をここに移す -->
+      <p>HisaMusic 音声編集</p>
+      <h1>ASMR・Vtuber<br>音声編集サービス</h1>
+      <p>DLsite販売中の担当作品多数！</p>
+      <p>安心の後払い！お支払いは最終納品後！</p>
+      <!-- CTAボタンもここ -->
+    </div>
+    <div class="hero-art">
+      <img
+        src="images/mascot_asmr_ref.jpeg"
+        alt=""
+        width="1024"
+        height="1024"
+      >
+    </div>
+  </section>
 <!-- Navbar -->
 <nav class="bg-slate-900/95 border-b border-slate-800 sticky top-0 z-50 backdrop-blur-md">
     <div class="max-w-6xl mx-auto px-4 sm:px-4 sm:px-6 py-4 flex justify-between items-center">
