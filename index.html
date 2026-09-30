@@ -12,14 +12,21 @@
         body {
             font-family: 'Noto Sans JP', 'Inter', system-ui, sans-serif;
         }
-        
-.hero {
+
+    .hero-bg {
+    background-image: linear-gradient(rgba(15, 23, 42, 0.65), rgba(15, 23, 42, 0.75)), 
+                      url('images/mascot_asmr_ref.jpeg');
+    background-size: cover;          /* 改成 cover */
+    background-position: center;
+    background-repeat: no-repeat;
+     }
+     .hero {
   display: grid;
   grid-template-columns: 1fr minmax(280px, 46%);
   min-height: 72vh;
   background: #0f172a;
   overflow: hidden;
-}
+     }
 
 .hero-art img {
   width: 100%;
