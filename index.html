@@ -14,11 +14,19 @@
         }
         
 .hero-bg {
-    background-image: linear-gradient(rgba(15, 23, 42, 0.65), rgba(15, 23, 42, 0.75)), 
-                      url('images/mascot_asmr_ref.jpeg');
-    background-size: cover;          /* 改成 cover */
-    background-position: center;
-    background-repeat: no-repeat;
+  background-color: #0f172a; /* 画像読み込み前の色 */
+  background-image:
+    linear-gradient(
+      90deg,
+      rgba(15, 23, 42, 0.88) 0%,
+      rgba(15, 23, 42, 0.62) 42%,
+      rgba(15, 23, 42, 0.28) 70%,
+      rgba(15, 23, 42, 0.18) 100%
+    ),
+    url('images/mascot_asmr_ref.jpeg');
+  background-size: cover;
+  background-position: 68% 28%; /* 顔＋マイクを優先 */
+  background-repeat: no-repeat;
 }
         
         .section-title {
