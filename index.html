@@ -49,7 +49,10 @@
         html { scroll-behavior: smooth; scroll-padding-top: 6rem; }
         body { line-height: 1.7; }
         .hero-bg { min-height: 68vh; }
-        .hero-content { max-width: 42rem; }
+        .hero-content {
+        max-width: 42rem;
+        transform: translateX(64px);
+        }
         .availability-badge { padding: .65rem 1rem; margin-bottom: 2rem; border-radius: 1rem; }
         .availability-badge .availability-dot { width: .55rem; height: .55rem; }
         .availability-badge .availability-text { font-size: clamp(.9rem, 1.8vw, 1.1rem); letter-spacing: .02em; }
@@ -71,6 +74,7 @@
         .contact-panel { border-radius: 1.15rem; }
         a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visible, select:focus-visible { outline: 2px solid #c4b5fd; outline-offset: 3px; }
         @media (max-width: 640px) {
+             .hero-content {transform: translateX(0);}
             .hero-bg { min-height: auto; background-position: 66% 20%; }
             .hero-inner { padding-top: 3.5rem; padding-bottom: 4rem; }
             .hero-proof { align-items: flex-start; }
